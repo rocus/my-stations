@@ -1,21 +1,16 @@
+from pathlib import Path
 from streamtuner_ng.plugins.base import Channel, make_row
 
 
-class ExampleRadio(Channel):
+# Set the root directory here
+ROOT = Path("/mnt/netgear/media/music/Radio")
 
-    from pathlib import Path
 
-    # Set the root directory here
-    ROOT = Path("/mnt/netgear/media/music/Radio")
+def scan_stations():
+    stations = {}
 
-    id = "myownstations"           # unique key, lowercase (must not clash with another channel)
-    title = "My own stations"      # the label shown in the sidebar
-    description = "My own stations as found on the nas server by Rocus van Oosten"
-    homepage = "file:/"+ str(ROOT) # right-click a station → Open web goes here
-    has_search = True              # True = update_streams() honours the toolbar filter
-    icon_emoji = "🎧"              # sidebar fallback icon when a station has no favicon
-
-    STATIONS = {}
+    if not ROOT.exists():
+        return stations
 
     for directory in sorted(ROOT.iterdir()):
         if not directory.is_dir():
@@ -25,26 +20,46 @@ class ExampleRadio(Channel):
         for file in sorted(directory.iterdir()):
             if file.is_file():
                 files.append((file.stem, str(file)))
+
         if files:
-            STATIONS[directory.name] = files
-		
-    # The names shown in the middle "categories" column (kept in this order).
+            stations[directory.name] = files
+
+    return stations
+
+
+class ExampleRadio(Channel):
+
+    id = "myownstations"
+    title = "My own stations"
+    description = "My own stations as found on the nas server by Rocus van Oosten"
+    homepage = "file:/" + str(ROOT)
+    has_search = True
+    icon_emoji = "🎧"
+
+    # Initial scan when the plugin is imported.
+    STATIONS = scan_stations()
+
     def update_categories(self):
         return list(self.STATIONS.keys())
 
-    # Return the station rows for the selected category. make_row() needs only
-    # title + url; everything else is optional. mpv plays direct URLs, .pls, .m3u.
     def update_streams(self, category, search=None):
+
+        # Rescan when Reload is used.
+        self.STATIONS = scan_stations()
+
         rows = []
+
         for name, url in self.STATIONS.get(category, []):
             if search and search.lower() not in name.lower():
-                continue                     # respect the search box (has_search = True)
+                continue
+
             rows.append(make_row(
                 title=name,
                 url=url,
                 genre=category,
                 bitrate=128,
                 format="audio/mpeg",
-                listformat="",            # "srv" = a direct stream URL (no .pls/.m3u indirection)
+                listformat="",
             ))
+
         return rows

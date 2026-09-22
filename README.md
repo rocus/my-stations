@@ -8,3 +8,5 @@ The plugin makes a directory on your computer visable in streamtuner-ng. This di
 There is only one thing to set in the plugin and that is the ROOT string. You must set that to the root of your radio stations tree. The next time you start streamtuner-ng you see that root in the "my own stations" plugin.
 
 The files in the radio tree (supposedly pls and m3u) are directly fed to the internal mpv player.
+
+If you rightclick (in streamtuner-ng) on the channel ("my own stations") a filemanager will be started at the ROOT directory. When you change something with this filemanager the change does not immediately shows, you have to do a reload for that.
