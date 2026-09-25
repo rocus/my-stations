@@ -1,4 +1,3 @@
-  
 This repository describes a plugin for streamtuner-ng.
 
 (see https://github.com/IronWolve/StreamTuner-ng)
