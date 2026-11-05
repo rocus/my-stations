@@ -1,3 +1,6 @@
+IMPORTANT NOTE: at the moment only the 1.2.0 version works with streamtuner-ng version 1.2.0. For the 1.4.1 version there are some modifications necessary in streamtuner-ng.
+
+
 This repository describes a plugin for streamtuner-ng.
 
 (see https://github.com/IronWolve/StreamTuner-ng)
