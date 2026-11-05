@@ -42,7 +42,7 @@ def valid_url(value: object, *, token: bool = False, web: bool = False) -> bool:
         QDesktopServices.openUrl(QUrl(url))
 ```
 
-My plugin 'my_radio_stations.py' is quite straightforward:
+My plugin 'my_own_stations.py' is quite straightforward:
 
 ```
 from pathlib import Path
