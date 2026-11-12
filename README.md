@@ -1,9 +1,10 @@
-IMPORTANT NOTE: at the moment only the 1.2.0 version works with streamtuner-ng version 1.2.0. For the 1.4.1 version there are some modifications necessary in streamtuner-ng.
-
-
 This repository describes a plugin for streamtuner-ng.
 
 (see https://github.com/IronWolve/StreamTuner-ng)
+
+In this repository are also debian packages you can use to install streamtuner-ng on your Debian 13 system.
+
+(sudo apt-get install ./streamtuner-ng.deb)
 
 The plugin makes a directory on your computer visable in streamtuner-ng. This directory is supposed to contain playable radio stations contained in pls files (or other containers). Because streamtuner-ng can only handle structures for 2 levels, your directory should be 1 or 2 levels deep. (the next level is not visable). But this limitation is obviously better than programs that let you play pls files in just one container. For example your streamtuner-ng's favorites (and locals) are just one level. See one other repository of me that "syncs" your "favorites" with a directory on your PC.
 

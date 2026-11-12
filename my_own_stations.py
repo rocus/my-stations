@@ -3,7 +3,7 @@ from streamtuner_ng.plugins.base import Channel, make_row
 
 
 # Set the root directory here
-ROOT = Path("/mnt/netgear/media/music/Radio")
+ROOT = Path("/mnt/lacie/media/music/Radio")
 
 
 def scan_stations():
@@ -31,8 +31,9 @@ class ExampleRadio(Channel):
 
     id = "myownstations"
     title = "My own stations"
-    description = "My own stations as found on the nas server by Rocus van Oosten"
-    homepage = "file:/" + str(ROOT)
+    description = "My own stations as present in "+str(ROOT)
+    homepage = ROOT.as_uri() + "/"
+    local_files = True
     has_search = True
     icon_emoji = "🎧"
 
@@ -52,14 +53,13 @@ class ExampleRadio(Channel):
         for name, url in self.STATIONS.get(category, []):
             if search and search.lower() not in name.lower():
                 continue
-
             rows.append(make_row(
                 title=name,
-                url=url,
+                url=Path(url).as_uri(),
                 genre=category,
-                bitrate=128,
-                format="audio/mpeg",
-                listformat="",
+#               bitrate=128,
+#               format="audio/mpeg",
+#               listformat="",
             ))
 
         return rows
